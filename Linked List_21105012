@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+
+class node
+{
+
+public:
+    string name;
+    int age;
+
+    node *next;
+    node *prev;
+
+    node(string d, int val)
+    {
+        name = d;
+        age = val;
+        next = NULL;
+        prev = NULL;
+    }
+};
+
+void insert_at_head(node *&head, string d, int val)
+{
+    node *n = new node(d, val);
+    n->next = head;
+    if (head != NULL)
+    {
+        head->prev = n;
+    }
+    head = n;
+}
+
+void insert_at_tail(node *&head, string d, int val)
+{
+    if (head == NULL)
+    {
+        insert_at_head(head, d, val);
+        return;
+    }
+
+    node *n = new node(d, val);
+    node *temp = head;
+
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    temp->next = n;
+    n->prev = temp;
+}
+
+void display(node *head)
+{
+    node *temp = head;
+    while (temp != NULL)
+    {
+        cout << temp->name << " " << temp->age << endl;
+        temp = temp->next;
+    }
+}
+
+int main()
+{
+    node *head = NULL;
+    cout<<"Name:             "<<"                  Age:    "<<endl;
+    insert_at_tail(head, "Father   -   Charanjit Singh        ", 50);
+    insert_at_tail(head, "Mother   -   Harpreet Kaur          ", 47);
+    display(head);
+}
